@@ -38,14 +38,19 @@
 						<!-- Input score -->
 						<div class='row'>
 							<div class='col-md-12'>
-								<input type='range' min='1' max='5' class='form-control' id='slider'>
-								<button onclick="submitInput()">Submit</button>
-							</div>
-						</div>
-						<!-- Fact box -->
-						<div class='row'>
-							<div class='col-md-12'>
-								fact goes here
+								<div class='input-screen'>
+									<input type='range' min='1' max='5' class='form-control' id='slider'>
+									<button onclick="submitInput()">Submit</button>
+								</div>
+								<div class='results-screen hidden'>
+									<div class='movie-score'>
+										Movie score goes here
+									</div>
+									<div class='fact'>
+										fact goes here
+									</div>
+									<button onclick="nextQuestion()">Next</button>
+								</div>
 							</div>
 						</div>
 					</div>
