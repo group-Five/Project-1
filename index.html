@@ -7,9 +7,21 @@
 	<body>
 		<!-- Page content -->
 		<div class='container'>
+			<div class='jumbotron'>
+				This is a header
+			</div>
+
+
 			<!-- Instructions screen -->
 			<div class='instructions'>
-				<button onclick="toggle()">start game</button>
+				<div class='row'>
+					<div class='col-md-12'>
+						<div class='instructions-content text-center'>
+							<p>Instructions go here</p>
+							<button onclick="toggle()">Play</button>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 			<!-- Game screen -->
@@ -17,11 +29,25 @@
 				<div class='row'>
 					<!-- Cover/Poster image -->
 					<div class='col-md-6'>
-						
+						<div class='image'>
+							
+						</div>
 					</div>
 					<!-- Input/Other -->
 					<div class='col-md-6'>
-						Game
+						<!-- Input score -->
+						<div class='row'>
+							<div class='col-md-12'>
+								<input type='range' min='1' max='5' class='form-control' id='slider'>
+								<button onclick="submitInput()">Submit</button>
+							</div>
+						</div>
+						<!-- Fact box -->
+						<div class='row'>
+							<div class='col-md-12'>
+								fact goes here
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
