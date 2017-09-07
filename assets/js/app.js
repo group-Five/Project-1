@@ -4,6 +4,16 @@ var toggle = function(){
 	$('.instructions').addClass('hidden');
 }
 
+var submitInput = function(){
+	$('.input-screen').addClass('hidden');
+	$('.results-screen').removeClass('hidden');
+}
+
+var nextQuestion = function(){
+	$('.results-screen').addClass('hidden');
+	$('.input-screen').removeClass('hidden');
+}
+
 //
 var playGame = function(){
 
@@ -27,7 +37,6 @@ $.ajax({
 	    				genre: response.results[i].genre_ids[i],
 	    				overview: response.results[i].overview,
 	    			},
-	
 	    		}
 	    	movieArray.push(masterMovieObject.movie);
     		}
