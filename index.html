@@ -64,13 +64,32 @@
 						<br>
 						<h3>HISCORES</h3>
 						<table id='hiscoreTable' class='table'>
-							<tr>
-								<th>Initials</th>
-								<th>Score</th>
-								<th>Date</th>
-							</tr>
+							<thead>
+								<tr>
+									<th>Initials</th>
+									<th>Score</th>
+									<th>Date</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
 						</table>
 						<button onclick="playGame()">Play again</button>
+					</div>
+				</div>
+			</div>
+			<!-- Enter Hiscore screen -->
+			<div class='enter-hiscore hidden'>
+				<div class='row'>
+					<div class='col-md-12 text-center'>
+						<h2>Congratulations, you got a hiscore!</h2>
+						<h3>Enter your initials:</h3>
+						<!-- THIS IS WHERE THE INITIALS PART WILL GO -->
+						<form>
+							<input type='text' id='hiscoreName'>
+							<input type='submit' value='Submit Hiscore' onclick='sendHiscore()'>
+						</form>
+						<button onclick='sendHiscore()'>See Hiscores</button>
 					</div>
 				</div>
 			</div>
