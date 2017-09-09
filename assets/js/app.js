@@ -2,6 +2,7 @@ var masterMovieObject;
 var movieArray = [];
 var randomPageNumber = Math.floor(Math.random() * 300) + 1  
 var queryURL = "https://api.themoviedb.org/3/movie/popular?api_key=ee2e00cb4eb46b7262f08bc8d337cc19&language=en-US&page=" + randomPageNumber;
+var questionCounter = 0;
 
 //Switches from instructions screen to game screen
 var toggle = function(){
@@ -21,6 +22,7 @@ var submitInput = function(){
 var nextQuestion = function(){
 	$('.results-screen').addClass('hidden');
 	$('.input-screen').removeClass('hidden');
+	//Display next question
 }
 
 //Pulls data into movieArray and displays the first question
@@ -45,6 +47,8 @@ var playGame = function(){
 	    	
     		}
 		}
+    	//shuffle array order
+    	questionCounter++;
     	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[0].poster + '"/>');
 	});
 }
