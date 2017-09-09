@@ -1,3 +1,15 @@
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyCp4_SHW4ex5cY-lVYHeHRqMsTIPqPLbIg",
+    authDomain: "project-1-77b2d.firebaseapp.com",
+    databaseURL: "https://project-1-77b2d.firebaseio.com",
+    projectId: "project-1-77b2d",
+    storageBucket: "",
+    messagingSenderId: "929454098178"
+	};
+firebase.initializeApp(config);
+var database = firebase.database();
+
 var masterMovieObject;
 var movieArray = [];
 var randomPageNumber = Math.floor(Math.random() * 300) + 1;
