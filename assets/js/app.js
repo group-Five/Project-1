@@ -26,6 +26,7 @@ var difference = function(input, rating){
 
 //Switches from input screen to results screen
 var submitInput = function(){
+	$('.next').removeClass('hidden');
 	$('.movie-score').text(movieArray[questionCounter].rating);
 
 	if(questionCounter === 9){
@@ -77,9 +78,16 @@ var playGame = function(){
 	questionCounter = 0;
 	score = 0;
 	movieArray = [];
+	randomPageNumber = Math.floor(Math.random() * 300) + 1;
+	queryURL = "https://api.themoviedb.org/3/movie/popular?api_key=ee2e00cb4eb46b7262f08bc8d337cc19&language=en-US&page=" + randomPageNumber;
 
 	$('.main').removeClass('hidden');
+	$('.input-screen').removeClass('hidden');
+
+	$('.results-screen').addClass('hidden');
 	$('.instructions').addClass('hidden');
+	$('.end-screen').addClass('hidden');
+	$('.end').addClass('hidden');
 
 	$.ajax({
       url: queryURL,
