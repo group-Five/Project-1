@@ -38,7 +38,7 @@
 						<div class='row'>
 							<div class='col-md-12'>
 								<div class='input-screen'>
-									<input type='range' min='1' max='5' class='form-control' id='slider'>
+									<input type='range' min='1' max='5' class='form-control' id='slider' step='0.1'>
 									<button onclick="submitInput()">Submit</button>
 								</div>
 								<div class='results-screen hidden'>
@@ -60,7 +60,10 @@
 			<div class='end-screen hidden'>
 				<div class='row'>
 					<div class='col-md-12 text-center'>
-						<table class='score'>
+						<h1 class='score'></h1>
+						<br>
+						<h3>HISCORES</h3>
+						<table id='hiscoreTable' class='table'>
 							<tr>
 								<th>Initials</th>
 								<th>Score</th>
@@ -68,14 +71,6 @@
 							</tr>
 						</table>
 						<button onclick="playGame()">Play again</button>
-					</div>
-				</div>
-			</div>
-			<!--Score screen -->
-			<div class='score-screen hidden'>
-				<div class='row'>
-					<div class='col-md-12 text-center'>
-						<h1 class='hiscore'></h1>
 					</div>
 				</div>
 			</div>
