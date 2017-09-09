@@ -11,14 +11,13 @@
 				This is a header
 			</div>
 
-
 			<!-- Instructions screen -->
 			<div class='instructions'>
 				<div class='row'>
 					<div class='col-md-12'>
 						<div class='instructions-content text-center'>
 							<p>Instructions go here</p>
-							<button onclick="toggle()">Play</button>
+							<button onclick="playGame()">Play</button>
 						</div>
 					</div>
 				</div>
@@ -46,13 +45,23 @@
 									<div class='movie-score'>
 										Movie score goes here
 									</div>
+									<button onclick="nextQuestion()" class='next'>Next</button>
+									<button onclick='endGame()' class='end hidden'>End Game</button>
 									<div class='fact'>
 										fact goes here
 									</div>
-									<button onclick="nextQuestion()">Next</button>
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End screen -->
+			<div class='end-screen hidden'>
+				<div class='row'>
+					<div class='col-md-12 text-center'>
+						<h1 class='score'></h1>
+						<button onclick="playGame()">Play again</button>
 					</div>
 				</div>
 			</div>
