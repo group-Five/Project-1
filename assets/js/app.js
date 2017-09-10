@@ -135,6 +135,7 @@ var endGame = function(){
 	} else {
 		$('.main').addClass('hidden');
 		$('.end-screen').removeClass('hidden');
+		generateTable();
 	}
 	//if not, just go right to the end screen
 	
@@ -165,6 +166,8 @@ var sendHiscore = function(){
 };
 
 var generateTable = function(){
+	//Clear out table
+    $("tbody").empty();
 	//Generate the hiscore table using the first 10 values in Firebase
 database.ref().orderByChild("inverseScore").limitToLast(10).on("child_added", function(snapshot){
     var sv = snapshot.val();
@@ -180,7 +183,12 @@ database.ref().orderByChild("inverseScore").limitToLast(10).on("child_added", fu
     rowHold.append(rowScore);
 
     var rowDate = $("<td>");
-    rowDate.text(sv.dateAdded);
+    dateUnix = sv.dateAdded
+	var myDate = new Date(dateUnix);
+	var sendDate = myDate.toLocaleString();
+	var splitDate = sendDate.split(",");
+	var pureDate = splitDate[0];
+    rowDate.text(pureDate);
     rowHold.append(rowDate)
 
     $("tbody").append(rowHold);
