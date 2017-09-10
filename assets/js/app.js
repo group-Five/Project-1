@@ -19,6 +19,23 @@ var lowestScore;
 var userInitials;
 var inverseScore;
 
+document.getElementById('hiscoreNameOne').style.height="200px";
+document.getElementById('hiscoreNameOne').style.width="200px";
+document.getElementById('hiscoreNameOne').style.fontSize="100pt";
+
+document.getElementById('hiscoreNameTwo').style.height="200px";
+document.getElementById('hiscoreNameTwo').style.width="200px";
+document.getElementById('hiscoreNameTwo').style.fontSize="100pt";
+
+document.getElementById('hiscoreNameThree').style.height="200px";
+document.getElementById('hiscoreNameThree').style.width="200px";
+document.getElementById('hiscoreNameThree').style.fontSize="100pt";
+$("form input[type=text]").on('input',function () {
+	$(this).next("input").focus();
+
+    //if($(this).val().length == $(this).attr('maxlength') && ploob === "true") 
+});
+
 //Returns difference
 var difference = function(input, rating){
 	return Math.abs(input - rating);
@@ -153,7 +170,10 @@ var saveToFB = function(){
 
 var sendHiscore = function(){
 	event.preventDefault();
-	userInitials = $('#hiscoreName').val();
+	initOne = $('#hiscoreNameOne').val();
+	initTwo = $('#hiscoreNameTwo').val();
+	initThree = $('#hiscoreNameThree').val();
+	userInitials = initOne + initTwo + initThree;
 	console.log(userInitials);
 	//Go to the end screen
 	$('.enter-hiscore').addClass('hidden');
@@ -192,7 +212,6 @@ database.ref().orderByChild("inverseScore").limitToLast(10).on("child_added", fu
     rowHold.append(rowDate)
 
     $("tbody").append(rowHold);
-
-    //-------End of the magic
+	//-------End of the magic
 });
 };
