@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet'>
+		<link href="assets/css/style.css" rel='stylesheet'>
+	</head>
+	<body>
+		<!-- Page content -->
+		<div class='container'>
+			<div class='jumbotron'>
+				This is a header
+			</div>
+
+			<!-- Instructions screen -->
+			<div class='instructions'>
+				<div class='row'>
+					<div class='col-md-12'>
+						<div class='instructions-content text-center'>
+							<p>Instructions go here</p>
+							<button onclick="playGame()">Play</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Game screen -->
+			<div class='main hidden'>
+				<div class='row'>
+					<!-- Cover/Poster image -->
+					<div class='col-md-6'>
+						<div class='image'>
+							
+						</div>
+					</div>
+					<!-- Input/Other -->
+					<div class='col-md-6'>
+						<!-- Input score -->
+						<div class='row'>
+							<div class='col-md-12'>
+								<div class='input-screen'>
+									<input type='range' min='1' max='5' class='form-control' id='slider' step='0.1'>
+									<button onclick="submitInput()">Submit</button>
+								</div>
+								<div class='results-screen hidden'>
+									<div class='movie-score'>
+										Movie score goes here
+									</div>
+									<button onclick="nextQuestion()" class='next'>Next</button>
+									<button onclick='endGame()' class='end hidden'>End Game</button>
+									<div class='fact'>
+										<div class='panel panel-default'>
+											<div class='panel-heading'></div>
+											<div class='panel-body'>
+												<p class='directors'></p>
+												<p class='writers'></p>
+												<p class='actors'></p>
+												<p class='plot'></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End screen -->
+			<div class='end-screen hidden'>
+				<div class='row'>
+					<div class='col-md-12 text-center'>
+						<h1 class='score'></h1>
+						<br>
+						<h3>HISCORES</h3>
+						<table id='hiscoreTable' class='table'>
+							<thead>
+								<tr>
+									<th>Initials</th>
+									<th>Score</th>
+									<th>Date</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+						<button onclick="playGame()">Play again</button>
+					</div>
+				</div>
+			</div>
+			<!-- Enter Hiscore screen -->
+			<div class='enter-hiscore hidden'>
+				<div class='row'>
+					<div class='col-md-12 text-center'>
+						<h2>Congratulations, you got a hiscore!</h2>
+						<h3>Enter your initials:</h3>
+						<!-- THIS IS WHERE THE INITIALS PART WILL GO -->
+						<form>
+							<input type='text' id='hiscoreName'>
+							<input type='submit' value='Submit Hiscore' onclick='sendHiscore()'>
+						</form>
+						<button onclick='sendHiscore()'>See Hiscores</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+		<script src='https://www.gstatic.com/firebasejs/4.3.0/firebase.js'></script>
+		<script src='assets/js/app.js'></script>
+	</body>
+</html>
