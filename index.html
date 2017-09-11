@@ -63,7 +63,7 @@
 						<h1 class='score'></h1>
 						<br>
 						<h3>HISCORES</h3>
-						<table id='hiscoreTable' class='table'>
+						<table id='hiscoreTable' class='table text-left'>
 							<thead>
 								<tr>
 									<th>Initials</th>
@@ -86,10 +86,12 @@
 						<h3>Enter your initials:</h3>
 						<!-- THIS IS WHERE THE INITIALS PART WILL GO -->
 						<form>
-							<input type='text' id='hiscoreName'>
+							<input type='text' id='hiscoreNameOne' class='init' maxlength="1" pattern="[A-Za-z]{1}">
+							<input type='text' id='hiscoreNameTwo' class='init' maxlength="1" pattern="[A-Za-z]{1}">
+							<input type='text' id='hiscoreNameThree' class='init' maxlength="1" pattern="[A-Za-z]{1}">
+							<br>
 							<input type='submit' value='Submit Hiscore' onclick='sendHiscore()'>
 						</form>
-						<button onclick='sendHiscore()'>See Hiscores</button>
 					</div>
 				</div>
 			</div>
