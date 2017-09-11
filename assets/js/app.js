@@ -41,8 +41,23 @@ var difference = function(input, rating){
 	return Math.abs(input - rating);
 }
 
+//Pulls bonus movie info from OMDB
+var pullFacts = function(){
+	$.ajax({
+      url: 'http://www.omdbapi.com/?apikey=40e9cece&t=' + movieArray[questionCounter].title,
+      method: "GET"
+    }).done(function(response) {
+    	$('.directors').text('Directed by: ' + response.Director);
+    	$('.writers').text('Written by: ' + response.Writer)
+    	$('.actors').text('Starring: ' + response.Actors);
+    	$('.plot').text('Plot: ' + response.Plot);
+	});
+}
+
 //Switches from input screen to results screen
 var submitInput = function(){
+	$('.panel-heading').text(movieArray[questionCounter].title);
+
 	$('.next').removeClass('hidden');
 	$('.movie-score').text(movieArray[questionCounter].rating);
 
@@ -83,7 +98,10 @@ var submitInput = function(){
 //Switches from results screen to input screen (new question)
 var nextQuestion = function(){
 	questionCounter++;
+
 	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[questionCounter].poster + '"/>');
+
+	pullFacts();
 
 	$('.results-screen').addClass('hidden');
 	$('.input-screen').removeClass('hidden');
@@ -110,24 +128,23 @@ var playGame = function(){
       url: queryURL,
       method: "GET"
     }).done(function(response) {
-    	for(i = 0; i < response.results.length; i++){
+    	for(var i = 0; i < response.results.length; i++){
     		if(response.results[i].vote_average != 0 && response.results[i].adult === false){
-	    		//console.log(response.results[i].title);
-	    		masterMovieObject = {
-	    			movie : {
-	    				title: response.results[i].title,
-	    				poster: response.results[i].poster_path,
-	    				rating: response.results[i].vote_average,
-	    				genre: response.results[i].genre_ids[i],
-	    				overview: response.results[i].overview,
-	    			},
-	    		}
-	    	movieArray.push(masterMovieObject.movie);
+	    		movie = {
+	    			title: response.results[i].title,
+	    			poster: response.results[i].poster_path,
+	    			rating: (Math.round(((response.results[i].vote_average) / 2) * 10) / 10),
+	    			genre: response.results[i].genre_ids[i],
+	    			overview: response.results[i].overview,
+	    		},
+	    	movieArray.push(movie);
 	    	
     		}
 		}
-    	//shuffle array order
+    	//shuffle array
+    	
     	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[questionCounter].poster + '"/>');
+    	pullFacts();
 	});
     //Making lowestScore equal to zero
     lowestScore = 0;
