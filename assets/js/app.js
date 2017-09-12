@@ -20,6 +20,7 @@ firebase.initializeApp(config);
 var database = firebase.database();
 var masterMovieObject;
 var movieArray = [];
+var randMANum;
 var randomPageNumber = Math.floor(Math.random() * 300) + 1;
 var queryURL = "https://api.themoviedb.org/3/movie/popular?api_key=ee2e00cb4eb46b7262f08bc8d337cc19&language=en-US&page=" + randomPageNumber;
 var questionCounter = 0;
@@ -47,7 +48,12 @@ $("form input[type=text]").on('input',function () {
     //if($(this).val().length == $(this).attr('maxlength') && ploob === "true") 
 });
 
-
+// Generate a random number for our movie array
+var genRandNum = function(){
+	randMANum = Math.floor((Math.random() * movieArray.length) + 1);
+	console.log(randMANum);
+	return randMANum;
+}
 
 //Returns difference
 var difference = function(input, rating){
@@ -55,24 +61,24 @@ var difference = function(input, rating){
 }
 
 //Pulls bonus movie info from OMDB
-var pullFacts = function(){
-	$.ajax({
-      url: 'http://www.omdbapi.com/?apikey=40e9cece&t=' + movieArray[questionCounter].title,
-      method: "GET"
-    }).done(function(response) {
-    	$('.directors').text('Directed by: ' + response.Director);
-    	$('.writers').text('Written by: ' + response.Writer)
-    	$('.actors').text('Starring: ' + response.Actors);
-    	$('.plot').text('Plot: ' + response.Plot);
-	});
-}
+ var pullFacts = function(){
+ 	$.ajax({
+       url: 'https://www.omdbapi.com/?apikey=40e9cece&t=' + movieArray[questionCounter].title,
+       method: "GET"
+     }).done(function(response) {
+     	$('.directors').text('Directed by: ' + response.Director);
+     	$('.writers').text('Written by: ' + response.Writer)
+     	$('.actors').text('Starring: ' + response.Actors);
+     	$('.plot').text('Plot: ' + response.Plot);
+ 	});
+ }
 
 //Switches from input screen to results screen
 var submitInput = function(){
-	$('.panel-heading').text(movieArray[questionCounter].title);
+	$('.panel-heading').text(movieArray[randMANum].title);
 
 	$('.next').removeClass('hidden');
-	//$('.movie-score').text(movieArray[questionCounter].rating);
+	$('.movie-score').text(movieArray[randMANum].rating);
 
 	if(questionCounter === 9){
 		$('.next').addClass('hidden');
@@ -83,7 +89,7 @@ var submitInput = function(){
 	$('.results-screen').removeClass('hidden');
 
 	var input = $('#rateYo').val();
-	var rating = movieArray[questionCounter].rating;
+	var rating = movieArray[randMANum].rating;
 	// ---------------------------- 
     $("#rateYo2").rateYo({
       normalFill: "#A0A0A0",
@@ -124,10 +130,10 @@ var nextQuestion = function(){
     $('#rateYoRating').text('0');
 
 	questionCounter++;
-
-	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[questionCounter].poster + '"/>');
-
-	pullFacts();
+	movieArray.splice(randMANum, 1);
+	console.log(movieArray);
+	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[genRandNum()].poster + '"/>');
+	console.log(movieArray);
 
 	$('.results-screen').addClass('hidden');
 	$('.input-screen').removeClass('hidden');
@@ -162,23 +168,23 @@ var playGame = function(){
       url: queryURL,
       method: "GET"
     }).done(function(response) {
-    	for(var i = 0; i < response.results.length; i++){
+    	for(i = 0; i < response.results.length; i++){
     		if(response.results[i].vote_average != 0 && response.results[i].adult === false){
-	    		movie = {
-	    			title: response.results[i].title,
-	    			poster: response.results[i].poster_path,
-	    			rating: (Math.round(((response.results[i].vote_average) / 2) * 10) / 10),
-	    			genre: response.results[i].genre_ids[i],
-	    			overview: response.results[i].overview,
-	    		},
+	    		//console.log(response.results[i].title);
+	    			movie = {
+	    				title: response.results[i].title,
+	    				poster: response.results[i].poster_path,
+	    				rating: (Math.round(((response.results[i].vote_average) / 2) * 10) / 10),
+	    				genre: response.results[i].genre_ids[i],
+	    				overview: response.results[i].overview,
+	    			}
 	    	movieArray.push(movie);
 	    	
     		}
 		}
-    	//shuffle array
-    	
-    	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[questionCounter].poster + '"/>');
-    	pullFacts();
+    	//shuffle array order
+    	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[genRandNum()].poster + '"/>');
+		console.log(movieArray);
 	});
     //Making lowestScore equal to zero
     lowestScore = 0;
