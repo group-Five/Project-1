@@ -63,7 +63,7 @@ var difference = function(input, rating){
 //Pulls bonus movie info from OMDB
  var pullFacts = function(){
  	$.ajax({
-       url: 'http://www.omdbapi.com/?apikey=40e9cece&t=' + movieArray[questionCounter].title,
+       url: 'https://www.omdbapi.com/?apikey=40e9cece&t=' + movieArray[questionCounter].title,
        method: "GET"
      }).done(function(response) {
      	$('.directors').text('Directed by: ' + response.Director);
@@ -75,6 +75,8 @@ var difference = function(input, rating){
 
 //Switches from input screen to results screen
 var submitInput = function(){
+	$('.panel-heading').text(movieArray[randMANum].title);
+
 	$('.next').removeClass('hidden');
 	$('.movie-score').text(movieArray[randMANum].rating);
 
@@ -169,16 +171,14 @@ var playGame = function(){
     	for(i = 0; i < response.results.length; i++){
     		if(response.results[i].vote_average != 0 && response.results[i].adult === false){
 	    		//console.log(response.results[i].title);
-	    		masterMovieObject = {
-	    			movie : {
+	    			movie = {
 	    				title: response.results[i].title,
 	    				poster: response.results[i].poster_path,
-	    				rating: response.results[i].vote_average,
+	    				rating: (Math.round(((response.results[i].vote_average) / 2) * 10) / 10),
 	    				genre: response.results[i].genre_ids[i],
 	    				overview: response.results[i].overview,
-	    			},
-	    		}
-	    	movieArray.push(masterMovieObject.movie);
+	    			}
+	    	movieArray.push(movie);
 	    	
     		}
 		}
