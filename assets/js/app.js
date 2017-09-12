@@ -123,7 +123,6 @@ var submitInput = function(){
 
 //Switches from results screen to input screen (new question)
 var nextQuestion = function(){
-
 	// reset ratingbar and display      
     $('#rateYo').rateYo("option", "rating", 0);
     $('#rateYoRating').text('0');
@@ -134,6 +133,8 @@ var nextQuestion = function(){
 	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[genRandNum()].poster + '"/>');
 	console.log(movieArray);
 
+	pullFacts();
+	
 	$('.results-screen').addClass('hidden');
 	$('.input-screen').removeClass('hidden');
 	//Display next question
@@ -184,6 +185,8 @@ var playGame = function(){
     	//shuffle array order
     	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[genRandNum()].poster + '"/>');
 		console.log(movieArray);
+
+		pullFacts();
 	});
     //Making lowestScore equal to zero
     lowestScore = 0;
