@@ -63,7 +63,7 @@ var difference = function(input, rating){
 //Pulls bonus movie info from OMDB
  var pullFacts = function(){
  	$.ajax({
-       url: 'https://www.omdbapi.com/?apikey=40e9cece&t=' + movieArray[questionCounter].title,
+       url: 'https://www.omdbapi.com/?apikey=40e9cece&t=' + movieArray[randMANum].title,
        method: "GET"
      }).done(function(response) {
      	$('.directors').text('Directed by: ' + response.Director);
@@ -78,7 +78,6 @@ var submitInput = function(){
 	$('.panel-heading').text(movieArray[randMANum].title);
 
 	$('.next').removeClass('hidden');
-	$('.movie-score').text(movieArray[randMANum].rating);
 
 	if(questionCounter === 9){
 		$('.next').addClass('hidden');
