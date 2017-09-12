@@ -1,20 +1,11 @@
-// display rating bar at the first place
-$('#rateYo').rateYo(
-    {ratedFill: "#E74C3C"}
-    ).on("rateyo.change", function(e, data) {
-    var rating = data.rating;
-    //console.log(rating);
-    $(this).next().text(rating);
-});
-
 // Initialize Firebase
 var config = {
-    apiKey: "AIzaSyCp4_SHW4ex5cY-lVYHeHRqMsTIPqPLbIg",
-    authDomain: "project-1-77b2d.firebaseapp.com",
-    databaseURL: "https://project-1-77b2d.firebaseio.com",
-    projectId: "project-1-77b2d",
-    storageBucket: "",
-    messagingSenderId: "929454098178"
+    apiKey: 'AIzaSyCp4_SHW4ex5cY-lVYHeHRqMsTIPqPLbIg',
+    authDomain: 'project-1-77b2d.firebaseapp.com',
+    databaseURL: 'https://project-1-77b2d.firebaseio.com',
+    projectId: 'project-1-77b2d',
+    storageBucket: '',
+    messagingSenderId: '929454098178'
 	};
 firebase.initializeApp(config);
 var database = firebase.database();
@@ -22,7 +13,7 @@ var masterMovieObject;
 var movieArray = [];
 var randMANum;
 var randomPageNumber = Math.floor(Math.random() * 300) + 1;
-var queryURL = "https://api.themoviedb.org/3/movie/popular?api_key=ee2e00cb4eb46b7262f08bc8d337cc19&language=en-US&page=" + randomPageNumber;
+var queryURL = 'https://api.themoviedb.org/3/movie/popular?api_key=ee2e00cb4eb46b7262f08bc8d337cc19&language=en-US&page=' + randomPageNumber;
 var questionCounter = 0;
 var score = 0;
 var lowestScore;
@@ -30,6 +21,7 @@ var userInitials;
 var inverseScore;
 var progBar = 10;
 var localTimestamp;
+var input; 
 
 document.getElementById('hiscoreNameOne').style.height="200px";
 document.getElementById('hiscoreNameOne').style.width="200px";
@@ -42,15 +34,15 @@ document.getElementById('hiscoreNameTwo').style.fontSize="100pt";
 document.getElementById('hiscoreNameThree').style.height="200px";
 document.getElementById('hiscoreNameThree').style.width="200px";
 document.getElementById('hiscoreNameThree').style.fontSize="100pt";
-$("form input[type=text]").on('input',function () {
-	$(this).next("input").focus();
+$('form input[type=text]').on('input',function () {
+	$(this).next('input').focus();
 
     //if($(this).val().length == $(this).attr('maxlength') && ploob === "true") 
 });
 
 // Generate a random number for our movie array
 var genRandNum = function(){
-	randMANum = Math.floor((Math.random() * movieArray.length) + 1);
+	randMANum = Math.floor(Math.random() * movieArray.length);
 	console.log(randMANum);
 	return randMANum;
 }
@@ -87,44 +79,44 @@ var submitInput = function(){
 	$('.input-screen').addClass('hidden');
 	$('.results-screen').removeClass('hidden');
 
-	var input = $('#rateYo').val();
 	var rating = movieArray[randMANum].rating;
 	// ---------------------------- 
-    $("#rateYo2").rateYo({
-      normalFill: "#A0A0A0",
-      rating: rating,
-      readOnly: true
-    })
+
+    $('#rateYo2').rateYo('option', 'rating', rating); 
+
     $('#rateYo2Rating').text(rating);
+
 // ----------------------------
+	
 	var diff = difference(input, rating);
-	console.log("Before you answer, your score is " + score);
+	console.log(diff);
+	console.log('Before you answer, your score is ' + score);
 	if(diff === 0){
 		score = score + 100;
-		console.log("You get 100 points (best)");
+		console.log('You get 100 points (best)');
 	}
 
 	else if(diff <= 1){
 		score = score + 50;
-		console.log("You get 50 points (second best)");
+		console.log('You get 50 points (second best)');
 	}
 
 	else if(diff <= 2){
 		score = score + 25;
-		console.log("You get 25 points (second worst)");
+		console.log('You get 25 points (second worst)');
 	}
 
 	else{
 		score = score + 10;
-		console.log("You get 10 points (worst)");
+		console.log('You get 10 points (worst)');
 	}
-	console.log("Your score is now " + score);
+	console.log('Your score is now ' + score);
 }
 
 //Switches from results screen to input screen (new question)
 var nextQuestion = function(){
 	// reset ratingbar and display      
-    $('#rateYo').rateYo("option", "rating", 0);
+    $('#rateYo').rateYo('option', 'rating', 0);
     $('#rateYoRating').text('0');
 
 	questionCounter++;
@@ -138,13 +130,7 @@ var nextQuestion = function(){
 	$('.results-screen').addClass('hidden');
 	$('.input-screen').removeClass('hidden');
 	//Display next question
-	progBar = progBar + 10;
-	progDisp = questionCounter + 1;
-	progTalk = "width: " + progBar + "%;"
-	$('.progress-bar').attr('aria-valuenow', progBar);
-	$('.progress-bar').attr('style', progTalk);
-	$('.progress-bar').html("Question " + progDisp + " out of 10");
-
+	progressBar();
 }
 
 //Pulls data into movieArray and displays the first question
@@ -153,7 +139,12 @@ var playGame = function(){
 	score = 0;
 	movieArray = [];
 	randomPageNumber = Math.floor(Math.random() * 300) + 1;
-	queryURL = "https://api.themoviedb.org/3/movie/popular?api_key=ee2e00cb4eb46b7262f08bc8d337cc19&language=en-US&page=" + randomPageNumber;
+	progBar = 0;
+	progressBar();
+	queryURL = 'https://api.themoviedb.org/3/movie/popular?api_key=ee2e00cb4eb46b7262f08bc8d337cc19&language=en-US&page=' + randomPageNumber;
+
+	$('#rateYo').rateYo('option', 'rating', 0);
+	$('#rateYoRating').text('0');
 
 	$('.main').removeClass('hidden');
 	$('.input-screen').removeClass('hidden');
@@ -166,7 +157,7 @@ var playGame = function(){
 	$('.progress').removeClass('hidden');
 	$.ajax({
       url: queryURL,
-      method: "GET"
+      method: 'GET'
     }).done(function(response) {
     	for(i = 0; i < response.results.length; i++){
     		if(response.results[i].vote_average != 0 && response.results[i].adult === false){
@@ -184,17 +175,24 @@ var playGame = function(){
 		}
     	//shuffle array order
     	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[genRandNum()].poster + '"/>');
+
+    	$('#rateYo2').rateYo({
+      		normalFill: '#A0A0A0',
+      		rating: movieArray[randMANum].rating,
+      		readOnly: true
+    	})
+
 		console.log(movieArray);
 
 		pullFacts();
 	});
     //Making lowestScore equal to zero
     lowestScore = 0;
-    console.log("Lowest score set to zero by default.");
+    console.log('Lowest score set to zero by default.');
 	//Grab the lowest score out of Firebase and overwriting lowestScore.  If nothing is pull, lowestScore stays at zero
-	database.ref().orderByChild("score").limitToFirst(1).on("child_added", function(snapshot){
+	database.ref().orderByChild('score').limitToFirst(1).on('child_added', function(snapshot){
 			lowestScore = snapshot.val().score;
-			console.log("The updated lowest score from Firebase is now " + lowestScore);
+			console.log('The updated lowest score from Firebase is now ' + lowestScore);
 	});
 }
 
@@ -218,6 +216,15 @@ var endGame = function(){
 	
 }
 
+var progressBar = function(){
+	progBar = progBar + 10;
+	progDisp = questionCounter + 1;
+	progTalk = 'width: ' + progBar + '%;'
+	$('.progress-bar').attr('aria-valuenow', progBar);
+	$('.progress-bar').attr('style', progTalk);
+	$('.progress-bar').html('Question ' + progDisp + ' out of 10');
+}
+
 //Pushes variables such as user initials and user score to Firebase
 var saveToFB = function(){
     database.ref().push({
@@ -226,7 +233,7 @@ var saveToFB = function(){
         inverseScore: inverseScore,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     })
-    database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot){
+    database.ref().orderByChild('dateAdded').limitToLast(1).on('child_added', function(snapshot){
     	var sv = snapshot.val();
     	localTimestamp = sv.dateAdded;
     });
@@ -252,31 +259,31 @@ var sendHiscore = function(){
 
 var generateTable = function(){
 	//Clear out table
-    $("tbody").empty();
+    $('tbody').empty();
 	//Generate the hiscore table using the first 10 values in Firebase
-database.ref().orderByChild("inverseScore").limitToLast(10).on("child_added", function(snapshot){
+database.ref().orderByChild('inverseScore').limitToLast(10).on('child_added', function(snapshot){
     var sv = snapshot.val();
     //---This is where the magic happens
-    var rowHold = $("<tr>");
+    var rowHold = $('<tr>');
 
-    var rowInitials = $("<td>");
+    var rowInitials = $('<td>');
     rowInitials.text(sv.userInitials);
     rowHold.append(rowInitials);
 
-    var rowScore = $("<td>");
+    var rowScore = $('<td>');
     rowScore.text(sv.score);
     rowHold.append(rowScore);
 
-    var rowDate = $("<td>");
+    var rowDate = $('<td>');
     dateUnix = sv.dateAdded
 	var myDate = new Date(dateUnix);
 	var sendDate = myDate.toLocaleString();
-	var splitDate = sendDate.split(",");
+	var splitDate = sendDate.split(',');
 	var pureDate = splitDate[0];
     rowDate.text(pureDate);
     rowHold.append(rowDate)
 
-    $("tbody").append(rowHold);
+    $('tbody').append(rowHold);
 
     if(localTimestamp === sv.dateAdded){
     	rowHold.addClass('bolded');
@@ -284,3 +291,13 @@ database.ref().orderByChild("inverseScore").limitToLast(10).on("child_added", fu
 	//-------End of the magic
 });
 };
+
+// display rating bar at the first place
+$('#rateYo').rateYo(
+    {ratedFill: '#E74C3C'}
+    ).on('rateyo.change', function(e, data) {
+    var rating = data.rating;
+    input = rating;
+    //console.log(rating);
+    $(this).next().text(rating);
+});
