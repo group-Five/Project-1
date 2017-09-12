@@ -1,0 +1,20 @@
+input { 
+    text-align: center;
+	color: transparent;
+	text-shadow: 0 0 0 black;
+	text-transform: uppercase;
+}
+
+body {
+	font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+	font-family: 'Limelight', cursive;
+}
+
+.bolded {
+	font-weight: bold;
+	background-color: #d62f2c;
+
+}
