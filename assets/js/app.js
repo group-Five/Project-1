@@ -1,3 +1,12 @@
+// display rating bar at the first place
+$('#rateYo').rateYo(
+    {ratedFill: "#E74C3C"}
+    ).on("rateyo.change", function(e, data) {
+    var rating = data.rating;
+    //console.log(rating);
+    $(this).next().text(rating);
+});
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyCp4_SHW4ex5cY-lVYHeHRqMsTIPqPLbIg",
@@ -19,6 +28,8 @@ var score = 0;
 var lowestScore;
 var userInitials;
 var inverseScore;
+var progBar = 10;
+var localTimestamp;
 
 document.getElementById('hiscoreNameOne').style.height="200px";
 document.getElementById('hiscoreNameOne').style.width="200px";
@@ -62,8 +73,16 @@ var submitInput = function(){
 	$('.input-screen').addClass('hidden');
 	$('.results-screen').removeClass('hidden');
 
-	var input = $('#slider').val();
+	var input = $('#rateYo').val();
 	var rating = movieArray[randMANum].rating;
+	// ---------------------------- 
+    $("#rateYo2").rateYo({
+      normalFill: "#A0A0A0",
+      rating: rating,
+      readOnly: true
+    })
+    $('#rateYo2Rating').text(rating);
+// ----------------------------
 	var diff = difference(input, rating);
 	console.log("Before you answer, your score is " + score);
 	if(diff === 0){
@@ -90,6 +109,11 @@ var submitInput = function(){
 
 //Switches from results screen to input screen (new question)
 var nextQuestion = function(){
+
+	// reset ratingbar and display      
+    $('#rateYo').rateYo("option", "rating", 0);
+    $('#rateYoRating').text('0');
+
 	questionCounter++;
 	movieArray.splice(randMANum, 1);
 	console.log(movieArray);
@@ -99,6 +123,13 @@ var nextQuestion = function(){
 	$('.results-screen').addClass('hidden');
 	$('.input-screen').removeClass('hidden');
 	//Display next question
+	progBar = progBar + 10;
+	progDisp = questionCounter + 1;
+	progTalk = "width: " + progBar + "%;"
+	$('.progress-bar').attr('aria-valuenow', progBar);
+	$('.progress-bar').attr('style', progTalk);
+	$('.progress-bar').html("Question " + progDisp + " out of 10");
+
 }
 
 //Pulls data into movieArray and displays the first question
@@ -116,7 +147,8 @@ var playGame = function(){
 	$('.instructions').addClass('hidden');
 	$('.end-screen').addClass('hidden');
 	$('.end').addClass('hidden');
-
+	//Show progress bar
+	$('.progress').removeClass('hidden');
 	$.ajax({
       url: queryURL,
       method: "GET"
@@ -154,7 +186,8 @@ var playGame = function(){
 //Runs end of game procedures
 var endGame = function(){
 	$('.score').text('Your score: ' + score);
-
+	//Hides the progress bar
+	$('.progress').addClass('hidden');
 	
 
 	//if you get a hiscore, take them to the screen for entering in your initials
@@ -178,6 +211,10 @@ var saveToFB = function(){
         inverseScore: inverseScore,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     })
+    database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot){
+    	var sv = snapshot.val();
+    	localTimestamp = sv.dateAdded;
+    });
 };
 
 var sendHiscore = function(){
@@ -185,7 +222,8 @@ var sendHiscore = function(){
 	initOne = $('#hiscoreNameOne').val();
 	initTwo = $('#hiscoreNameTwo').val();
 	initThree = $('#hiscoreNameThree').val();
-	userInitials = initOne + initTwo + initThree;
+	lowLetters = initOne + initTwo + initThree;
+	userInitials = lowLetters.toUpperCase();
 	console.log(userInitials);
 	//Go to the end screen
 	$('.enter-hiscore').addClass('hidden');
@@ -224,6 +262,10 @@ database.ref().orderByChild("inverseScore").limitToLast(10).on("child_added", fu
     rowHold.append(rowDate)
 
     $("tbody").append(rowHold);
+
+    if(localTimestamp === sv.dateAdded){
+    	rowHold.addClass('bolded');
+    }
 	//-------End of the magic
 });
 };
