@@ -179,7 +179,8 @@ var playGame = function(){
     	$('#rateYo2').rateYo({
       		normalFill: '#A0A0A0',
       		rating: movieArray[randMANum].rating,
-      		readOnly: true
+      		readOnly: true,
+      		starWidth: '100px'
     	})
 
 		console.log(movieArray);
@@ -294,7 +295,8 @@ database.ref().orderByChild('inverseScore').limitToLast(10).on('child_added', fu
 
 // display rating bar at the first place
 $('#rateYo').rateYo(
-    {ratedFill: '#E74C3C'}
+    {ratedFill: '#E74C3C',
+	 starWidth: '100px'}
     ).on('rateyo.change', function(e, data) {
     var rating = data.rating;
     input = rating;

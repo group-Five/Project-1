@@ -40,49 +40,55 @@
 				<div class='row'>
 					<!-- Cover/Poster image -->
 					<div class='col-md-6'>
-						<div class='image'>
+						<div class='image text-center'>
 							
 						</div>
 					</div>
 					<!-- Input/Other -->
 					<div class='col-md-6'>
 						<!-- Input score -->
-						<div class='row'>
 							<div class='col-md-12'>
 								<div class='input-screen'>
-
+									<div class='row'>
 									<!-- userGuess -->
-                                    	<div class='col-md-10' id='rateYo'></div>
+                                    	<div class='text-center' id='rateYo'></div>
                                 	<!-- display userGuess-->    
-                                    	<div class='col-md-2' id='rateYoRating'></div>
-
-									<button onclick='submitInput()'>Submit</button>
+                                    	<div class='text-center' id='rateYoRating'></div>
+									</div>
+									<div class='row'>
+										<button onclick='submitInput()'>Submit</button>
+									</div>
 								</div>
 
 								<div class='results-screen hidden'>
-									<div class='movie-score'>
-										<!--Movie score goes here -->
-										<div class='row'>
-                                            <div class='col-md-10' id='rateYo2'></div>
-                                            <div class='col-md-2' id='rateYo2Rating'></div>
-                                        </div>
+									<div class='row'>
+										<div class='movie-score'>
+											<!--Movie score goes here -->
+											<div class='row'>
+	                                            <div class='text-center' id='rateYo2'></div>
+	                                            <div class='text-center' id='rateYo2Rating'></div>
+	                                        </div>
+										</div>
 									</div>
-									<button onclick='nextQuestion()' class='next'>Next</button>
-									<button onclick='endGame()' class='end hidden'>End Game</button>
-									<div class='fact'>
-										<div class='panel panel-default'>
-											<div class='panel-heading'></div>
-											<div class='panel-body'>
-												<p class='directors'></p>
-												<p class='writers'></p>
-												<p class='actors'></p>
-												<p class='plot'></p>
+									<div class='row'>
+										<button onclick='nextQuestion()' class='next'>Next</button>
+										<button onclick='endGame()' class='end hidden'>End Game</button>
+									</div>
+									<div class='row'>
+										<div class='fact'>
+											<div class='panel panel-default'>
+												<div class='panel-heading'></div>
+												<div class='panel-body'>
+													<p class='directors'></p>
+													<p class='writers'></p>
+													<p class='actors'></p>
+													<p class='plot'></p>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
 					</div>
 				</div>
 			</div>
