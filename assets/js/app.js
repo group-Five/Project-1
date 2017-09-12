@@ -60,6 +60,19 @@ var difference = function(input, rating){
 	return Math.abs(input - rating);
 }
 
+//Pulls bonus movie info from OMDB
+ var pullFacts = function(){
+ 	$.ajax({
+       url: 'http://www.omdbapi.com/?apikey=40e9cece&t=' + movieArray[questionCounter].title,
+       method: "GET"
+     }).done(function(response) {
+     	$('.directors').text('Directed by: ' + response.Director);
+     	$('.writers').text('Written by: ' + response.Writer)
+     	$('.actors').text('Starring: ' + response.Actors);
+     	$('.plot').text('Plot: ' + response.Plot);
+ 	});
+ }
+
 //Switches from input screen to results screen
 var submitInput = function(){
 	$('.next').removeClass('hidden');
