@@ -50,7 +50,7 @@ $("form input[type=text]").on('input',function () {
 
 // Generate a random number for our movie array
 var genRandNum = function(){
-	randMANum = Math.floor((Math.random() * movieArray.length) + 1);
+	randMANum = Math.floor((Math.random() * movieArray.length));
 	console.log(randMANum);
 	return randMANum;
 }
@@ -62,6 +62,8 @@ var difference = function(input, rating){
 
 //Pulls bonus movie info from OMDB
  var pullFacts = function(){
+ 	// genRandNum();
+ 	console.log(randMANum);
  	$.ajax({
        url: 'https://www.omdbapi.com/?apikey=40e9cece&t=' + movieArray[randMANum].title,
        method: "GET"
@@ -75,6 +77,8 @@ var difference = function(input, rating){
 
 //Switches from input screen to results screen
 var submitInput = function(){
+	// genRandNum();
+ 	console.log(randMANum);
 	$('.panel-heading').text(movieArray[randMANum].title);
 
 	$('.next').removeClass('hidden');
@@ -89,6 +93,7 @@ var submitInput = function(){
 
 	var input = $('#rateYo').val();
 	var rating = movieArray[randMANum].rating;
+	console.log(rating);
 	// ---------------------------- 
     $("#rateYo2").rateYo({
       normalFill: "#A0A0A0",
@@ -96,7 +101,7 @@ var submitInput = function(){
       readOnly: true
     })
     $('#rateYo2Rating').text(rating);
-// ----------------------------
+	// ----------------------------
 	var diff = difference(input, rating);
 	console.log("Before you answer, your score is " + score);
 	if(diff === 0){
@@ -123,6 +128,9 @@ var submitInput = function(){
 
 //Switches from results screen to input screen (new question)
 var nextQuestion = function(){
+	// genRandNum();
+ 	console.log(randMANum);
+
 	// reset ratingbar and display      
     $('#rateYo').rateYo("option", "rating", 0);
     $('#rateYoRating').text('0');
@@ -130,29 +138,38 @@ var nextQuestion = function(){
 	questionCounter++;
 	movieArray.splice(randMANum, 1);
 	console.log(movieArray);
-	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[genRandNum()].poster + '"/>');
+	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[randMANum].poster + '"/>');
 	console.log(movieArray);
 
 	pullFacts();
 	
 	$('.results-screen').addClass('hidden');
 	$('.input-screen').removeClass('hidden');
-	//Display next question
+
+	progressbar();
+}
+
+var progressbar = function() {
 	progBar = progBar + 10;
 	progDisp = questionCounter + 1;
 	progTalk = "width: " + progBar + "%;"
 	$('.progress-bar').attr('aria-valuenow', progBar);
 	$('.progress-bar').attr('style', progTalk);
 	$('.progress-bar').html("Question " + progDisp + " out of 10");
+}
 
+var reset = function() {
+	progBar = 0;
+	questionCounter = 0;
+	progressbar();
+	score = 0;
+	movieArray = [];
+	randomPageNumber = Math.floor(Math.random() * 300) + 1;
 }
 
 //Pulls data into movieArray and displays the first question
 var playGame = function(){
-	questionCounter = 0;
-	score = 0;
-	movieArray = [];
-	randomPageNumber = Math.floor(Math.random() * 300) + 1;
+	reset();
 	queryURL = "https://api.themoviedb.org/3/movie/popular?api_key=ee2e00cb4eb46b7262f08bc8d337cc19&language=en-US&page=" + randomPageNumber;
 
 	$('.main').removeClass('hidden');
