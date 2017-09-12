@@ -2,13 +2,24 @@
 <html>
 	<head>
 		<link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet'>
-		<link href="assets/css/style.css" rel='stylesheet'>
+		<link href="https://fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
+		<link href='assets/css/style.css' rel='stylesheet'>
+		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 	</head>
 	<body>
 		<!-- Page content -->
 		<div class='container'>
-			<div class='jumbotron'>
-				This is a header
+			<div class='header'>
+				 <div class='row'>
+				 	<div class='col-md-12'>
+				 		<div class="progress hidden">
+  							<div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
+						    	Question 1 out of 10
+							</div>
+						</div>
+				 	</div>
+				 </div>
 			</div>
 
 			<!-- Instructions screen -->
@@ -16,6 +27,7 @@
 				<div class='row'>
 					<div class='col-md-12'>
 						<div class='instructions-content text-center'>
+							<h1>HEADER header HEADER</h1>
 							<p>Instructions go here</p>
 							<button onclick="playGame()">Play</button>
 						</div>
@@ -38,12 +50,22 @@
 						<div class='row'>
 							<div class='col-md-12'>
 								<div class='input-screen'>
-									<input type='range' min='1' max='5' class='form-control' id='slider' step='0.1'>
+
+									<!-- userGuess -->
+                                    	<div class='col-md-10' id='rateYo'></div>
+                                	<!-- display userGuess-->    
+                                    	<div class='col-md-2' id='rateYoRating'></div>
+
 									<button onclick="submitInput()">Submit</button>
 								</div>
+
 								<div class='results-screen hidden'>
 									<div class='movie-score'>
-										Movie score goes here
+										<!--Movie score goes here -->
+										<div class='row'>
+                                            <div class='col-md-10' id='rateYo2'></div>
+                                            <div class='col-md-2' id="rateYo2Rating"></div>
+                                        </div>
 									</div>
 									<button onclick="nextQuestion()" class='next'>Next</button>
 									<button onclick='endGame()' class='end hidden'>End Game</button>
@@ -56,6 +78,7 @@
 					</div>
 				</div>
 			</div>
+
 			<!-- End screen -->
 			<div class='end-screen hidden'>
 				<div class='row'>
@@ -78,6 +101,7 @@
 					</div>
 				</div>
 			</div>
+
 			<!-- Enter Hiscore screen -->
 			<div class='enter-hiscore hidden'>
 				<div class='row'>
@@ -99,6 +123,8 @@
 		<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 		<script src='https://www.gstatic.com/firebasejs/4.3.0/firebase.js'></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js'></script>
 		<script src='assets/js/app.js'></script>
+		
 	</body>
 </html>
