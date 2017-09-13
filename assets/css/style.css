@@ -74,3 +74,8 @@ img {
 .panel, .panel-default, button {
 	margin-top: 2%;
 }
+
+#rateYoRating, #rateYo2Rating {
+	font-size: 24px;
+	font-weight: bold;
+}

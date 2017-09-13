@@ -91,7 +91,7 @@ var submitInput = function(){
 
     $('#rateYo2').rateYo('option', 'rating', rating); 
 
-    $('#rateYo2Rating').text(rating);
+    $('#rateYo2Rating').text('Actual rating: ' + rating);
 
 // ----------------------------
 	

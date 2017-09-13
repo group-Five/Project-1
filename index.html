@@ -29,7 +29,7 @@
 						<div class='instructions-content text-center'>
 							<h1>HEADER header HEADER</h1>
 							<p>Instructions go here</p>
-							<button onclick="playGame()">Play</button>
+							<button onclick='playGame()' class='btn btn-primary btg-lg'>Play</button>
 						</div>
 					</div>
 				</div>
@@ -54,7 +54,7 @@
                                     	<div class='text-center' id='rateYoRating'></div>
 									</div>
 									<div class='row'>
-										<button onclick='submitInput()'>Submit</button>
+										<button onclick='submitInput()' class='btn btn-primary btg-lg'>Submit</button>
 									</div>
 								</div>
 
@@ -69,8 +69,8 @@
 										</div>
 									</div>
 									<div class='row'>
-										<button onclick='nextQuestion()' class='next'>Next</button>
-										<button onclick='endGame()' class='end hidden'>End Game</button>
+										<button onclick='nextQuestion()' class='next btn btn-primary btg-lg'>Next</button>
+										<button onclick='endGame()' class='end btn btn-primary btg-lg hidden'>End Game</button>
 									</div>
 									<div class='row'>
 										<div class='fact text-left'>
@@ -109,7 +109,7 @@
 							<tbody>
 							</tbody>
 						</table>
-						<button onclick='playGame()'>Play again</button>
+						<button onclick='playGame()' class='btn btn-primary btg-lg'>Play again</button>
 					</div>
 				</div>
 			</div>
@@ -122,7 +122,7 @@
 						<h3>Enter your initials:</h3>
 						<!-- THIS IS WHERE THE INITIALS PART WILL GO -->
 						<form>
-							<input type='text' id='hiscoreNameOne' class='init' maxlength='1' pattern='A-Za-z]{1}'>
+							<input type='text' id='hiscoreNameOne' class='init' maxlength='1' pattern='{A-Za-z]{1}'>
 							<input type='text' id='hiscoreNameTwo' class='init' maxlength='1' pattern='[A-Za-z]{1}'>
 							<input type='text' id='hiscoreNameThree' class='init' maxlength='1' pattern='[A-Za-z]{1}'>
 							<br>
