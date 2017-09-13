@@ -6,7 +6,9 @@ input {
 }
 
 body {
+	background-image: url('../images/background_night.jpg');
 	font-family: 'Raleway', sans-serif;
+	color: white;
 }
 
 h1 {
@@ -15,7 +17,7 @@ h1 {
 
 .bolded {
 	font-weight: bold;
-	background-color: #d62f2c;
+	background-color: #cc0000;
 
 }
 
@@ -72,10 +74,39 @@ img {
 }
 
 .panel, .panel-default, button {
-	margin-top: 2%;
+	margin-top: 2%; 
+
+}
+
+.btn-lg {
+	background-color: #cc0000;
+}
+
+.btn-lg:hover {
+	background-color: #b30000;
+}
+
+.btn-lg:active:focus {
+	box-shadow: none;
+	background-color: #b30000;
+}
+
+.panel .panel-heading {
+	background-color: #555;
+	color: #FFF;
+	font-family: 'Limelight', cursive;
+	font-size: 22px;
+}
+
+.panel .panel-body {
+	background-color: #333;
 }
 
 #rateYoRating, #rateYo2Rating {
 	font-size: 24px;
 	font-weight: bold;
+}
+
+.progress-bar {
+	background-color: #cc0000;
 }

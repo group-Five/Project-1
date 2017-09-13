@@ -21,7 +21,7 @@ var userInitials;
 var inverseScore;
 var progBar = 10;
 var localTimestamp;
-var input; 
+var input = 0; 
 var rail = []; 
 var highscoreCount;
 
@@ -67,6 +67,7 @@ function findAccuracy(guess, real){
        url: 'https://www.omdbapi.com/?apikey=40e9cece&t=' + movieArray[randMANum].title,
        method: "GET"
      }).done(function(response) {
+     	console.log('test');
      	$('.directors').text('Directed by: ' + response.Director);
      	$('.writers').text('Written by: ' + response.Writer)
      	$('.actors').text('Starring: ' + response.Actors);
@@ -87,6 +88,7 @@ var submitInput = function(){
 
 	$('.input-screen').addClass('hidden');
 	$('.results-screen').removeClass('hidden');
+	$('#scoreStatus').removeClass('hidden');
 
 	var rating = movieArray[randMANum].rating;
 	// ---------------------------- 
@@ -99,6 +101,7 @@ var submitInput = function(){
 	
 	var diff = findAccuracy(input, rating);
 	console.log('You got ' + diff + " points");
+	$('#scoreStatus').html("+" + diff + " points");
 	score = score + diff;
 	console.log('Your score is now ' + score);
 }
@@ -108,6 +111,7 @@ var nextQuestion = function(){
 	// reset ratingbar and display      
     $('#rateYo').rateYo('option', 'rating', 0);
     $('#rateYoRating').text('0');
+    input=0;
 
 	questionCounter++;
 	movieArray.splice(randMANum, 1);
