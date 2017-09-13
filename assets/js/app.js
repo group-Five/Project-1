@@ -112,7 +112,7 @@ var nextQuestion = function(){
 	questionCounter++;
 	movieArray.splice(randMANum, 1);
 	console.log(movieArray);
-	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[genRandNum()].poster + '"/>');
+	$('.image').html('<img src="https://image.tmdb.org/t/p/w342' + movieArray[genRandNum()].poster + '"/>');
 	console.log(movieArray);
 
 	pullFacts();
@@ -164,7 +164,7 @@ var playGame = function(){
     		}
 		}
     	//shuffle array order
-    	$('.image').html('<img src="https://image.tmdb.org/t/p/w500' + movieArray[genRandNum()].poster + '"/>');
+    	$('.image').html('<img src="https://image.tmdb.org/t/p/w342' + movieArray[genRandNum()].poster + '"/>');
 
     	$('#rateYo2').rateYo({
       		normalFill: '#A0A0A0',
