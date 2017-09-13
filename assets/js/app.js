@@ -47,10 +47,16 @@ var genRandNum = function(){
 	return randMANum;
 }
 
-//Returns difference
-var findAccuracy = function(guess, real){
-	var delta = Math.abs(real-guess);
-	return Math.ceil((100-(((delta)/(real))*100)));
+//Function that finds the accuracy of your guess based on the absolute difference between your guess and the real rating
+function findAccuracy(guess, real){
+	//Declares a variable that is equal to the real rating by default
+	var modular = real;
+ 	//If statement that will switch the value to rating of your guess
+	if(real < guess){
+  	modular = guess
+  	};
+	var delta = Math.abs(real - guess);
+	return Math.abs(Math.ceil((100-(((delta) / (modular)) * 100))));
 };
 
 //Pulls bonus movie info from OMDB
