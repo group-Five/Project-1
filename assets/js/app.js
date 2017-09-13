@@ -48,9 +48,10 @@ var genRandNum = function(){
 }
 
 //Returns difference
-var difference = function(input, rating){
-	return Math.abs(input - rating);
-}
+var findAccuracy = function(guess, real){
+	var delta = Math.abs(real-guess);
+	return Math.ceil((100-(((delta)/(real))*100)));
+};
 
 //Pulls bonus movie info from OMDB
  var pullFacts = function(){
@@ -88,28 +89,9 @@ var submitInput = function(){
 
 // ----------------------------
 	
-	var diff = difference(input, rating);
-	console.log(diff);
+	var diff = findAccuracy(input, rating);
 	console.log('Before you answer, your score is ' + score);
-	if(diff === 0){
-		score = score + 100;
-		console.log('You get 100 points (best)');
-	}
-
-	else if(diff <= 1){
-		score = score + 50;
-		console.log('You get 50 points (second best)');
-	}
-
-	else if(diff <= 2){
-		score = score + 25;
-		console.log('You get 25 points (second worst)');
-	}
-
-	else{
-		score = score + 10;
-		console.log('You get 10 points (worst)');
-	}
+	score = score + diff;
 	console.log('Your score is now ' + score);
 }
 
