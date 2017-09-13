@@ -64,12 +64,19 @@ function findAccuracy(guess, real){
  var pullFacts = function(){
  	$.ajax({
        url: 'https://www.omdbapi.com/?apikey=40e9cece&t=' + movieArray[randMANum].title,
-       method: "GET"
+       method: 'GET'
      }).done(function(response) {
      	$('.directors').text('Directed by: ' + response.Director);
      	$('.writers').text('Written by: ' + response.Writer)
      	$('.actors').text('Starring: ' + response.Actors);
      	$('.plot').text('Plot: ' + response.Plot);
+
+     	var imdbRating = (Math.round(((response.imdbRating) / 2) * 10) / 10);
+;
+     	//Changes themovieDB rating to imdbRating, if provided by OMDB
+     	if(imdbRating <= 5 & imdbRating > 0){
+     		movieArray[randMANum].rating = imdbRating;
+     	}
  	});
  }
 
@@ -171,8 +178,6 @@ var playGame = function(){
       		starWidth: '100px'
     	})
 
-		//console.log(movieArray);
-
 		pullFacts();
 	});
     //Making lowestScore equal to zero
@@ -251,8 +256,9 @@ var generateTable = function(){
 	//Clear out table
     $('tbody').empty();
 	//Generate the hiscore table using the first 10 values in Firebase
-database.ref().orderByChild('inverseScore').limitToLast(10).on('child_added', function(snapshot){
+database.ref().orderByChild('inverseScore').limitToFirst(10).on('child_added', function(snapshot){
     var sv = snapshot.val();
+    console.log(sv);
     //---This is where the magic happens
     var rowHold = $('<tr>');
 
