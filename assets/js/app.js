@@ -45,7 +45,6 @@ $('form input[type=text]').on('input',function () {
 // Generate a random number for our movie array
 var genRandNum = function(){
 	randMANum = Math.floor(Math.random() * movieArray.length);
-	console.log(randMANum);
 	return randMANum;
 }
 
@@ -67,7 +66,6 @@ function findAccuracy(guess, real){
        url: 'https://www.omdbapi.com/?apikey=40e9cece&t=' + movieArray[randMANum].title,
        method: "GET"
      }).done(function(response) {
-     	console.log('test');
      	$('.directors').text('Directed by: ' + response.Director);
      	$('.writers').text('Written by: ' + response.Writer)
      	$('.actors').text('Starring: ' + response.Actors);
@@ -100,10 +98,8 @@ var submitInput = function(){
 // ----------------------------
 	
 	var diff = findAccuracy(input, rating);
-	console.log('You got ' + diff + " points");
 	$('#scoreStatus').html("+" + diff + " points");
 	score = score + diff;
-	console.log('Your score is now ' + score);
 }
 
 //Switches from results screen to input screen (new question)
@@ -115,9 +111,7 @@ var nextQuestion = function(){
 
 	questionCounter++;
 	movieArray.splice(randMANum, 1);
-	console.log(movieArray);
 	$('.image').html('<img src="https://image.tmdb.org/t/p/w342' + movieArray[genRandNum()].poster + '"/>');
-	console.log(movieArray);
 
 	pullFacts();
 	
@@ -183,7 +177,6 @@ var playGame = function(){
 	});
     //Making lowestScore equal to zero
     lowestScore = 0;
-    console.log('Lowest score set to zero by default.');
     //Sees how many hiscores are in Firebase
     database.ref().on('child_added', function(snapshot){
     	rail.push(snapshot.val().score);
@@ -191,7 +184,6 @@ var playGame = function(){
 	//Grab the lowest score out of Firebase and overwriting lowestScore.  If nothing is pull, lowestScore stays at zero
 	database.ref().orderByChild('score').limitToFirst(1).on('child_added', function(snapshot){
 			lowestScore = snapshot.val().score;
-			console.log('The updated lowest score from Firebase is now ' + lowestScore);
 	});
 	
 }
@@ -202,7 +194,6 @@ var endGame = function(){
 	//Hides the progress bar
 	$('.progress').addClass('hidden');
 	highscoreCount = rail.length;
-	console.log("There are " + highscoreCount + " hiscore entries");
 	//if there are less than 10 hiscores, then congratulations, you got a hiscore
 	if (highscoreCount < 10 || score > lowestScore){
 		$('.main').addClass('hidden');
@@ -246,7 +237,6 @@ var sendHiscore = function(){
 	initThree = $('#hiscoreNameThree').val();
 	lowLetters = initOne + initTwo + initThree;
 	userInitials = lowLetters.toUpperCase();
-	console.log(userInitials);
 	//Go to the end screen
 	$('.enter-hiscore').addClass('hidden');
 	$('.end-screen').removeClass('hidden');
@@ -288,7 +278,6 @@ database.ref().orderByChild('inverseScore').limitToLast(10).on('child_added', fu
     if(localTimestamp === sv.dateAdded){
     	rowHold.addClass('bolded');
     }
-	//-------End of the magic
 });
 };
 
@@ -299,6 +288,5 @@ $('#rateYo').rateYo(
     ).on('rateyo.change', function(e, data) {
     var rating = data.rating;
     input = rating;
-    //console.log(rating);
     $(this).next().text(rating);
 });
