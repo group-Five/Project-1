@@ -22,6 +22,8 @@ var inverseScore;
 var progBar = 10;
 var localTimestamp;
 var input; 
+var rail = []; 
+var highscoreCount;
 
 document.getElementById('hiscoreNameOne').style.height="200px";
 document.getElementById('hiscoreNameOne').style.width="200px";
@@ -96,7 +98,7 @@ var submitInput = function(){
 // ----------------------------
 	
 	var diff = findAccuracy(input, rating);
-	console.log('Before you answer, your score is ' + score);
+	console.log('You got ' + diff + " points");
 	score = score + diff;
 	console.log('Your score is now ' + score);
 }
@@ -171,18 +173,23 @@ var playGame = function(){
       		starWidth: '100px'
     	})
 
-		console.log(movieArray);
+		//console.log(movieArray);
 
 		pullFacts();
 	});
     //Making lowestScore equal to zero
     lowestScore = 0;
     console.log('Lowest score set to zero by default.');
+    //Sees how many hiscores are in Firebase
+    database.ref().on('child_added', function(snapshot){
+    	rail.push(snapshot.val().score);
+	});
 	//Grab the lowest score out of Firebase and overwriting lowestScore.  If nothing is pull, lowestScore stays at zero
 	database.ref().orderByChild('score').limitToFirst(1).on('child_added', function(snapshot){
 			lowestScore = snapshot.val().score;
 			console.log('The updated lowest score from Firebase is now ' + lowestScore);
 	});
+	
 }
 
 //Runs end of game procedures
@@ -190,10 +197,10 @@ var endGame = function(){
 	$('.score').text('Your score: ' + score);
 	//Hides the progress bar
 	$('.progress').addClass('hidden');
-	
-
-	//if you get a hiscore, take them to the screen for entering in your initials
-	if(score > lowestScore){
+	highscoreCount = rail.length;
+	console.log("There are " + highscoreCount + " hiscore entries");
+	//if there are less than 10 hiscores, then congratulations, you got a hiscore
+	if (highscoreCount < 10 || score > lowestScore){
 		$('.main').addClass('hidden');
 		$('.enter-hiscore').removeClass('hidden');
 	} else {
