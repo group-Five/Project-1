@@ -13,6 +13,9 @@ body {
 
 h1 {
 	font-family: 'Limelight', cursive;
+}
+
+.title {
   margin-top: 10%;
 }
 
@@ -80,7 +83,7 @@ img {
 }
 
 .panel, .panel-default, button {
-	margin-top: 2%; 
+	margin-top: 1%; 
 
 }
 
