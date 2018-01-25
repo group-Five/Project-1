@@ -1,4 +1,4 @@
-# Project-1
+# Project-1: Armchair Movie Critic
 (Coding BootCamp) first project mainly using API
 
 Instructions:
